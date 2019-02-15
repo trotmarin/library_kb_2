@@ -22,7 +22,7 @@
                 <td>{{ book.rent_date|date:"d-m-Y" }}</td>
                 <td>{{ book.back_date|date:"d-m-Y" }}</td>
                 <td>{{ book.how_many_days }}</td>
-                {% if book.how_many_days < 0 %}
+                {% if '-' in book.how_many_days  %}
                 <td style="color:red"> 연체 </td>
                 {% else %}
                 <td style="color:blue"> 정상 </td> 

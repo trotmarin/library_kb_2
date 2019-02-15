@@ -14,6 +14,7 @@ from .views import (
     return_book_view,
     rent_book_view,
     SearchBookListView,
+    ExpiredBooks,
 )
 
 
@@ -21,6 +22,7 @@ urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
     path('search-book-results/', SearchBookListView.as_view(), name='search'),
     path('books', BooksListView.as_view(), name='books'),
+    path('expired', ExpiredBooks.as_view(), name='expired'),
     path('book/<slug:slug>',
          BookDetailView.as_view(), name='bookDetail'),
     path('confirm-rent-a-book/<slug:slug>',

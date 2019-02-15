@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.views.generic.edit import FormMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     DetailView,
     FormView,
@@ -26,6 +27,13 @@ from .models import (
 )
 # Create your views here.
 
+class ExpiredBooks(ListView):
+    model = 'BookRentHistory', 'Book'
+    template_name ='books/book_expired.html'
+
+    def get_queryset(self):
+        # return BookRentHistory.objects.order_by('id')
+        return BookRentHistory.objects.all()
 
 class HomeListView(ListView):
     template_name = 'books/home.html'
@@ -149,7 +157,7 @@ def return_book_view(request, slug):
             log_history = BookRentHistory.objects.filter(book=b)[0]
             log_history.delete()
             messages.success(
-                request, f'You successfully returned a book: {b.title}')
+                request, f'성공적으로 반환되었습니다.: {b.title}')
         else:
             messages.warning(
                 request, f'Error occurs, sorry')

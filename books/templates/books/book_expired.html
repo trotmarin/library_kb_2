@@ -19,8 +19,8 @@
             <tr>
                 <td>{{ book.user }}</td>
                 <td>{{ book.book.title }}</td>
-                <td>{{ book.rent_date|date:"M-d-Y" }}</td>
-                <td>{{ book.back_date|date:"M-d-Y" }}</td>
+                <td>{{ book.rent_date|date:"M.d Y" }}</td>
+                <td>{{ book.back_date|date:"M.d Y" }}</td>
                 <td>{{ book.how_many_days }}</td>
                 {% if '-' in book.how_many_days  %}
                 <td style="color:red"> 연체 </td>

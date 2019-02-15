@@ -32,7 +32,6 @@ class ExpiredBooks(ListView):
     template_name ='books/book_expired.html'
 
     def get_queryset(self):
-        # return BookRentHistory.objects.order_by('id')
         return BookRentHistory.objects.all()
 
 class HomeListView(ListView):

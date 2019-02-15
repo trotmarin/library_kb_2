@@ -79,7 +79,7 @@ class BookRentHistory(models.Model):
 
     @property
     def how_many_days(self):
-        return str(self.back_date - datetime.now().date())[:2]
+        return str(self.back_date - datetime.now().date())[:3]
 
 
 class BookReview(models.Model):

@@ -10,7 +10,7 @@
                 <th>도서명</th>
                 <th>대여일</th>
                 <th>반환기일</th>
-                <th>일수</th>
+                <th>남은일수</th>
                 <th>상태</th>
             </tr>
 
@@ -22,7 +22,7 @@
                 <td>{{ book.rent_date|date:"d-m-Y" }}</td>
                 <td>{{ book.back_date|date:"d-m-Y" }}</td>
                 <td>{{ book.how_many_days }}</td>
-                {% if datetime.now > book.back_date %}
+                {% if book.how_many_days < 0 %}
                 <td style="color:red"> 연체 </td>
                 {% else %}
                 <td style="color:blue"> 정상 </td> 

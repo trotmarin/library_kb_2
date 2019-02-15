@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+
+        <div class="username">
+            <img style="margin-bottom:15px;" src="{{ user.profile.image.url }}" alt="User Photo">
+            <h4>
+                <strong>{{ user.username }}</strong>
+            </h4>
+            <a href="{% url 'UserUpdate' %}"><button class="btn btn-success profile_buttons">프로필 수정
+                    <i class="fas fa-user-edit"></i></button></a>
+            <!-- <a href="{% url 'ProfileUpdate' %}"><button class="btn btn-success profile_buttons">사진 수정
+                    <i class="fas fa-camera-retro"></i></button></a> -->
+
+        </div>
+        <div class="profile_info">
+
+            <p><strong>가입일자</strong> <br>{{ user.date_joined|date:"F j, Y" }}</p>
+            <p><strong>마지막 접속일 </strong><br>{{ user.last_login|date:"F j, Y" }}</p>
+            <p><strong>Email </strong><br>{{ user.email }}</p>
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+        <h2>나의 대여 목록:</h2>
+        <table style="width:100%" id="books">
+            <tr>
+                <th>도서명</th>
+                <th>대여일</th>
+                <th>반환기일</th>
+                <th>일수</th>
+                <th>상태</th>
+            </tr>
+            {% for book in user.books.all %}
+            <!-- <h1> test </h -->
+            <tr>
+                <td>{{ book.book.title }}</td>
+                <td>{{ book.rent_date|date:"d-m-Y" }}</td>
+                <td>{{ book.back_date|date:"d-m-Y" }}</td>
+                <td>{{ book.how_many_days }}</td>
+                <td><a href="{% url 'return_book' slug=book.book.slug %}">반환</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock content %}

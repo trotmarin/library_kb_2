@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>새 계정 만들기</h3>
+<h4>ID: 한글, 영문, 숫자, 특수문자(@ . + - _ 만 가능)</h4>
+<h4>PWD: 숫자, 문자 조합 8자 이상</h4>
+
+<form method="post" class="formsWidth">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">가입하기</button>
+</form>
+이미 가입하였습니다 <a href="{% url 'login' %}">로그인하기</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+<div class="row">
+    <div class="col-md-4 bookDetailLeftSide">
+        <img class="bookImage" src="{{ book.image.url }}" alt=""> <br>
+        <!-- <img class="bookImage" src="{% static 'icons/book2.jpg' %}" alt=""> <br> -->
+        {% if book.actual_rating %}
+        {% for rate in book.actual_rating %}
+        <span class="fa fa-star checked"></span>
+        {% endfor %}
+        <br>
+        평점 등록 개수({{ book.reviews.count }})<br>
+        {% else %}
+        <br>
+        <h6>평점 없음</h6>
+        {% endif %}
+        평점:
+        <a href="{% url 'rate_book' slug=book.slug rating=1 %}">①</a>
+        <a href="{% url 'rate_book' slug=book.slug rating=2 %}">②</a>
+        <a href="{% url 'rate_book' slug=book.slug rating=3 %}">③</a>
+        <a href="{% url 'rate_book' slug=book.slug rating=4 %}">④</a>
+        <a href="{% url 'rate_book' slug=book.slug rating=5 %}">⑤</a> <br>
+        <a href="#commentBox">댓글 수 ({{ book.comments.count }})</a>
+        {% if book.book_amount > 0 %}
+        <h5><strong>현재 남은 수량 :</strong> {{ book.book_amount }}</h5>
+        {% if user.is_authenticated %}
+        <a href="{% url 'confirm_rent_view' slug=book.slug %}"><button class="btn btn-primary btn-xs">대여</button></a>
+        {% else %}
+        <a href="{% url 'confirm_rent_view' slug=book.slug %}"><button class="btn btn-primary btn-xs">대여를 위한 로그인
+                </button></a>
+        {% endif %}
+        {% else %}
+        <h5><strong>현재 남은 수량 </strong>없음</h5>
+        {% endif %} <br>
+    </div>
+    <div class="col-md-8">
+        <h5><strong>{{ book.title }}</strong> </h5>
+        <h5><strong>저자:</strong> {{ book.author }}</h5>
+        <h5><strong>카테고리:</strong> {{ book.category }}</h5>
+        <h6><strong>설명:</strong> </h6>
+        <p> {{ book.description }}</p>
+        <hr class="my-4">
+        <div id="commentBox">
+            {% if user.is_authenticated %}
+            <form method="post" class="formsWidth">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">댓글 등록</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-primary btn-xs">댓글
+                    등록 (로그인)</button></a>
+            {% endif %}
+
+            {% if comments %}
+            <br> <br>
+            <h6>댓글({{ book.comments.count }}):</h6>
+            {% for comment in comments %}
+            <div>
+                <h6><strong>{{ comment.user.username }}</strong></h6>
+                <h6 class="comment_text">{{ comment.text }}</h6>
+            </div>
+            <hr class="my-4">
+            {% endfor %}
+            {% else %}
+            <h6>댓글 없음</h6>
+
+            {% endif %}
+        </div>
+    </div>
+
+
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h3>진짜 대여하시겠습니까? </h3>
+<img src="{{ book.image.url }}" class="bookImage" alt="">
+<h5><strong>도서명:</strong> {{ book.title }}</h5>
+<h5><strong>저자:</strong> {{ book.author }}</h5>
+<a href="{% url 'rent_book' slug=book.slug %}"><button class="btn btn-success btn-xs">네</button></a>
+<a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-info btn-xs">아니요</button></a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="jumbotron">
+    <h1 class="display-4">환영합니다</h1>
+    <p class="lead">IT기술혁신센터 직원 전용 자율형도서관</p>
+    <hr class="my-4">
+    <p>
+        <h5>도서 검색</h5>
+        <form class="searchForm" action="{% url 'search' %}" method=" GET">
+            <div class="form-group row">
+                <input class="form-control col-md-7" required="required" name="q" type="text" placeholder="도서명이나 저자명 입력">
+                <span class="col-md-1"></span>
+                <button type="submit" class="btn btn-primary form-control col-md-2">검색가즈아</button>
+            </div>
+        </form>
+
+    </p>
+</div>
+<hr class="my-4">
+<h2>최근 추가된 도서:</h2>
+<div class="row lastBooksContainer">
+    {% for book in book_list %}
+    <div class="col-md-4 bookCard">
+        <div class="cardBorder">
+            <!-- <img class="book_image" src="{% static 'icons/book2.jpg' %}" alt="Book image"> -->
+            <img class="book_image" src="{{ book.image.url }}" alt="Book image">
+
+            <h5>{{ book.title }}</h5>
+            <h6>{{ book.author }}</h6>
+            {% if book.actual_rating %}
+            {% for rate in book.actual_rating %}
+            <span class="fa fa-star checked"></span>
+            {% endfor %} <br>
+            {% else %}
+            <h6>평점 없음</h6>
+            {% endif %}
+
+            <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">선택</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
